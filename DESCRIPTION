@@ -1,11 +1,10 @@
-Package: FastGlasso
+Package: GLassoFast2
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Open mp paralleized version of glasso package
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Author: Amir Vajdi
+Maintainer: The package maintainer <amir@cs.umb.edu>
+Description: is a faster alternative and parralized to the "glasso" function in the glasso package (Friedman et al. 2008). This package is based on the algorithm (C subroutine) of Sustik and Calderhead (2012) and Jones, David T., et al. "PSICOV" (2011)
+License: GNU
 Encoding: UTF-8
 LazyData: true
