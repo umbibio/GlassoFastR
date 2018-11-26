@@ -6,7 +6,7 @@ Parralel implementation of graphical lasso
 %%  ~~function to do ... ~~
 }
 \description{
-This function is a faster alternative to the "glasso" function in the glasso package (Friedman et al. 2008). This package is based on the algorithm (Fort subroutine) of Sustik and Calderhead (2012) and Jones, David T., et al. "PSICOV" (2011)
+This function is a faster alternative to the "glasso" function in the glasso package (Friedman et al. 2008). This package is based on the algorithm (C subroutine) of Sustik and Calderhead (2012) and Jones, David T., et al. "PSICOV" (2011)
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
