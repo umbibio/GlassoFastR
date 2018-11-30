@@ -18,7 +18,6 @@
 #define MIN(x,y) ((x)<(y)?(x):(y))
 
 #define MAXSEQLEN 50000
-#define MINEFSEQS (seqlen)
 
 /* Dump a rude message to standard error and exit */
 void fail(char *fmt, ...)
@@ -266,14 +265,13 @@ int test_cholesky(double **a, const int n)
 
   
 
-int main(double *cov,double *L,int *size,int *approximation, int *shrink,int *threads, double *cutoff)
+int main(double *cov,double *L,int *size,int *approximation, int *shrink,int *threads, double *cutoff, int *numberofIter, double *wTmp,double *wiTmp)
 {
-    int             a, b, i, j, k, seqlen, nids, s, dimension, ncon, opt, ndim, filtflg=0, approxflg=0, initflg=0, apcflg=1, maxit=10000, npair, nnzero, niter, jerr, shrinkflg=1, rawscflg = 1, pseudoc = 1, minseqsep = 5, overrideflg=0, ntries;
-    double thresh=1e-4, del,  pcmean, pc, trialrho, rhodefault = -1.0;
-    double sum, score, **pa, wtsum, lambda, low_lambda, high_lambda, smean, fnzero, lastfnzero, rfact, r2, targfnzero = 0.0, scsum, scsumsq, mean, sd, zscore, ppv;    
+    int             a, b, i, j, k,  s, dimension,  filtflg=0, approxflg=0, initflg=0, maxit=10000, shrinkflg=1,   minseqsep = 5, overrideflg=0, ntries;
+    double thresh=1e-4, del,  trialrho, rhodefault = -1.0;
+    double sum, score, **pa,  lambda, low_lambda, high_lambda, smean,  r2, mean, sd;    
     double  besttd = 1.0, bestrho = 0.001;
-    char            buf[4096], *blockfn = NULL, **aln;
-    FILE *ifp;
+ 
 
 if(*approximation==1)
     approxflg=1;
@@ -298,20 +296,6 @@ if(*cutoff>0)
     /* Form the covariance matrix */
     double x;
 
-
-Rprintf("beforeRho\n");	
-    printf("%d ",dimension);
-	/* Mask out regions if block-out list provided 
-	if (*L>0)
-	{
-            for (i=0;i<dimension;i++){
-                 for(j=0;j<dimension;j++){
-                        rho[j][i] = *(L++);
-                        }   
-                 }
-	}*/
-
-
 #pragma omp parallel for default(shared) private(j)
     for (i=0; i<dimension; i++)
     {
@@ -325,8 +309,7 @@ Rprintf("beforeRho\n");
 
 
 /* Shrink sample covariance matrix towards shrinkage target F = Diag(1,1,1,...,1) * smean */
-//    fclose(ifp);
-Rprintf("beforeShrinkage\n");
+
     if (*shrink==1)
     {
 	for (smean=i=0; i<dimension; i++)
@@ -363,7 +346,6 @@ Rprintf("beforeShrinkage\n");
 	    }
             counter++;
 	}
-	Rprintf("counter: %d\n",counter);
 	for (i=0; i<dimension; i++)
 	    for (j=0; j<dimension; j++)
 			if (i != j)
@@ -374,38 +356,17 @@ Rprintf("beforeShrinkage\n");
 
   
 
-    Rprintf("beforeGlasso");
-    maxit=glassofast(dimension, cmat, rho, thresh, maxit, approxflg, initflg, wwi, ww);
+    numberofIter[0]=glassofast(dimension, cmat, rho, thresh, maxit, approxflg, initflg, wwi, ww);
 
-    /* Calculate background corrected scores using average product correction 
-
-	int index=0; 
+#pragma omp parallel for default(shared) private(j)
  for (i=0;i<dimension;i++){
     for(j=0;j<dimension;j++){
-	Rprintf("%lf ",ww[i][j]); 
-	//*(theta+index)=wwi[j][i];  
-       *(cov+index)=ww[i][j]; 
-	index++;  
+          wTmp[i*dimension+j]=ww[i][j]; 
+	  wiTmp[i*dimension+j]=wwi[i][j]; 
     }
   } 
-
-       
- FILE *foutwi = fopen("Precision.Tab", "w");
- FILE *foutw = fopen("CovarianceEstimated.Tab", "w");
-
- for (i=0;i<dimension;i++){
-    for(j=0;j<dimension;j++){
-      fprintf(foutwi,"%lf\t",wwi[i][j]);  
-       fprintf(foutw,"%lf\t",ww[i][j]);  
    
-    }
-      fprintf(foutwi,"\n");  
-      fprintf(foutw,"\n");  
-  } 
-    fclose(foutwi);
-    fclose(foutw);  
-    */
+
    
   return 0;
 }
-
