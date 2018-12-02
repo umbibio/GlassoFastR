@@ -1,1 +1,2 @@
+useDynLib("GlassoFast2")
 exportPattern("^[[:alpha:]]+")
