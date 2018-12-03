@@ -1,27 +1,26 @@
-
-glassoParallel=function(S,
-                        RhoS,
+GlassoFast2=function(S,
+                        rho,
                         approx=-1,
                         shrink=-1,
                         threads=1,
-                        cutoffs=0.0001){
-#dyn.load("src/GlassoFastParallel.so")
+                        cutoff=0.0001){
+
 
 ptm <- proc.time()
 out=a=.C("main2",
          cov=as.numeric(S),
-         L=as.numeric(RhoS),
+         L=as.numeric(rho),
          size=as.integer(nrow(S)),
          approximation=as.integer(approx),
          shrink=as.integer(shrink),
          thread=as.integer(threads),
-         cutoff=as.numeric(cutoffs),
+         cutoff=as.numeric(cutoff),
          numberofIter=as.integer(0),
          wTmp=as.vector(as.numeric(S)),
          wiTmp=as.vector(as.numeric(S)))
 runTimeOurs=proc.time()-ptm
 
-results <- list(w=out[[9]], wi=out[[10]], niter=out[[8]],runTime=runTimeOurs)
-return(results)
+results <- list(w=matrix(out[[9]],nrow=nrow(S),ncol=ncol(S)), wi=matrix(out[[10]],nrow=nrow(S),ncol=ncol(S)), niter=out[[8]],runTime=runTimeOurs)
+  return(results)
 
 }
