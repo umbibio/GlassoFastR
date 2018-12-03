@@ -1,4 +1,4 @@
-Package: GLassoFast2
+Package: GlassoFast2
 Type: Package
 Title: Open mp paralleized version of glasso package
 Version: 0.1.0
