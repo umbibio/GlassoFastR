@@ -27,7 +27,7 @@ The regularization parameter for lasso. (a non-negative value or a p by p matrix
 Optional parameter for  maximum number of threads in order to run the program in parrallel utilizing open mp. Default 1.
 %%     ~~Describe \code{trace} here~~
 }
-  \item{thr}{
+  \item{cutoff}{
 Optional threshold for convergence. Default is 1.e-4.
 %%     ~~Describe \code{thr} here~~
 }
