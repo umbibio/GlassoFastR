@@ -2,4 +2,4 @@
 # I followed the instructions at http://hpc.sourceforge.net/ to install gcc 4.9
 #CC=/usr/bin/gcc 
 PKG_LIBS =-fopenmp -lgomp
-#PKG_CFLAGS= -O3 -Wall -pipe -pedantic -std=gnu99 -fopenmp
+PKG_CFLAGS= -O3 -Wall -pipe -pedantic -std=gnu99 -fopenmp
