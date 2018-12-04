@@ -305,8 +305,8 @@ int main2(double *cov,double *L,int *size,int *approximation, int *shrink,int *t
   {
     for (j=0; j<dimension; j++)
     {
-      cmat[j][i] =*(cov++);
-      rho[j][i] = *(L++);
+      cmat[i][j] =*(cov++);
+      rho[i][j] = *(L++);
 
     }
   }
