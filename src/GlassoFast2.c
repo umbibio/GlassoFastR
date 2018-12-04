@@ -75,7 +75,7 @@ void           *allocvec(int columns, int size)
 
 int glassofast(const int n, double **S, double **L, const double thr, const int maxit, int approxflg, int warm, double **X, double **W)
 {
-  int i, j, ii, iter, jj;
+  int i, j, ii, iter, jj, tid;
   double a, b, c, delta, dlx, dw, shr, sum, thrlasso, tmp, wd[MAXSEQLEN], wxj[MAXSEQLEN];
 
   for (shr=ii=0; ii<n; ii++)
@@ -139,9 +139,12 @@ int glassofast(const int n, double **S, double **L, const double thr, const int 
   {
     dw = 0.0;
 
-#pragma omp parallel for private(i,j,ii,wxj,a,b,c,dlx,delta,sum)
+#pragma omp parallel for private(i,j,ii,wxj,a,b,c,dlx,delta,sum,tid)
     for (j=0; j<n; j++)
     {
+      tid = omp_get_thread_num();
+      Rprintf("%d\t",tid);
+
       for (ii=0; ii<n; ii++)
         wxj[ii] = 0.0;
 
