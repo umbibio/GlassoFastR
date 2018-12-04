@@ -139,7 +139,7 @@ int glassofast(const int n, double **S, double **L, const double thr, const int 
   {
     dw = 0.0;
 
-#pragma omp parallel for default(shared) private(i,j,ii,wxj,a,b,c,dlx,delta,sum)
+#pragma omp parallel for num_threads(8) private(i,j,ii,wxj,a,b,c,dlx,delta,sum)
     for (j=0; j<n; j++)
     {
       for (ii=0; ii<n; ii++)
