@@ -300,7 +300,7 @@ int main2(double *cov,double *L,int *size,int *approximation, int *shrink,int *t
   /* Form the covariance matrix */
   double x;
 
-#pragma omp parallel for default(shared) private(j)
+//#pragma omp parallel for default(shared) private(j)
   for (i=0; i<dimension; i++)
   {
     for (j=0; j<dimension; j++)
@@ -362,7 +362,7 @@ int main2(double *cov,double *L,int *size,int *approximation, int *shrink,int *t
 
   numberofIter[0]=glassofast(dimension, cmat, rho, thresh, maxit, approxflg, initflg, wwi, ww);
 
-#pragma omp parallel for default(shared) private(j)
+//#pragma omp parallel for default(shared) private(j)
   for (i=0;i<dimension;i++){
     for(j=0;j<dimension;j++){
       wTmp[i*dimension+j]=ww[i][j];
