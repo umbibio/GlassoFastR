@@ -1,6 +1,6 @@
 library(Rcpp)
-library(RcppArmadillo)
-library(RcppEigen)
+#library(RcppArmadillo)
+#library(RcppEigen)
 
 sourceCpp("include/matMulRcpp.cpp")
 
