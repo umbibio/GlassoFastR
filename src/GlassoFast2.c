@@ -370,22 +370,6 @@ int main2(double *cov,double *L,int *size,int *approximation, int *shrink,int *t
     }
   }
 
-         
- FILE *foutwi = fopen("Penlaty.Tab", "w");
- FILE *foutw = fopen("CovarianceEstimated.Tab", "w");
-
- for (i=0;i<dimension;i++){
-    for(j=0;j<dimension;j++){
-      fprintf(foutwi,"%lf\t",rho[i][j]);  
-       fprintf(foutw,"%lf\t",ww[i][j]);  
-   
-    }
-      fprintf(foutwi,"\n");  
-      fprintf(foutw,"\n");  
-  } 
-    fclose(foutwi);
-    fclose(foutw);  
-
 
   return 0;
 }
