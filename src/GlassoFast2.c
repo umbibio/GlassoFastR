@@ -310,7 +310,21 @@ int main2(double *cov,double *L,int *size,int *approximation, int *shrink,int *t
 
     }
   }
+       
+ FILE *foutwi = fopen("Precision.Tab", "w");
+ FILE *foutw = fopen("CovarianceEstimated.Tab", "w");
 
+ for (i=0;i<dimension;i++){
+    for(j=0;j<dimension;j++){
+      fprintf(foutwi,"%lf\t",rho[i][j]);  
+       fprintf(foutw,"%lf\t",cmat[i][j]);  
+   
+    }
+      fprintf(foutwi,"\n");  
+      fprintf(foutw,"\n");  
+  } 
+    fclose(foutwi);
+    fclose(foutw);  
 
   /* Shrink sample covariance matrix towards shrinkage target F = Diag(1,1,1,...,1) * smean */
 
