@@ -5,7 +5,7 @@ GlassoFast2=function(S,
                         threads=1,
                         cutoff=0.0001){
 
-
+rho=t(rho)
 ptm <- proc.time()
 out=a=.C("main2",
          cov=as.numeric(S),
