@@ -8,3 +8,5 @@ Description: is a faster alternative and parralized to the "glasso" function in 
 License: GNU
 Encoding: UTF-8
 LazyData: true
+Imports: 
+  Rcpp (>= 1.0.0)
