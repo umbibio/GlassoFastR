@@ -1,5 +1,5 @@
-\name{GlassoFast2}
-\alias{GlassoFast2}
+\name{GlassoFastR}
+\alias{GlassoFastR}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Parralel implementation of graphical lasso
@@ -10,7 +10,7 @@ This function is a faster alternative to the "glasso" function in the glasso pac
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-GlassoFast2(S, rho, thr = 1e-04, thread=1, maxIt = 10000, start = c("cold", "warm"),
+GlassoFastR(S, rho, thr = 1e-04, thread=1, maxIt = 10000, start = c("cold", "warm"),
 w.init = NULL, wi.init = NULL, shrinkage = F,approximation=F)
 }
 %- maybe also 'usage' for other objects documented here.
@@ -104,6 +104,6 @@ S=cov(S)
 
 
 # Compute the LASSO estimates
-GlassoFast2(S, rho=.001)
+GlassoFastR(S, rho=.001)
 
 }
