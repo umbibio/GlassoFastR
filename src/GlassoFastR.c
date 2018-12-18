@@ -71,7 +71,7 @@ void           *allocvec(int columns, int size)
 }
 
 
-#define EPS (1.1e-15)
+#define EPS (1.0e-7)
 #define BIG (1e9)
 
 int glassofast(const int n, double **S, double **L, const double thr, const int maxit, int approxflg, int warm, double **X, double **W)
