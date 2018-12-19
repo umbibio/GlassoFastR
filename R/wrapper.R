@@ -18,7 +18,7 @@ GlassoFastR=function(S,
 
 
 if(!is.matrix(rho)){
-  tmp=rho
+  tmp=rho[1]
   rho=S
   rho[!is.na(rho)]=tmp
 }
