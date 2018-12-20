@@ -22,7 +22,8 @@ if(!is.matrix(rho)){
   rho=S
   rho[!is.na(rho)]=tmp
 }
-rho=t(rho)
+cat("checking symmetric for rho: ",isSymmetric(rho),"\n dimension of rho is: ",dim(rho),"\n dimension of S is: ",dim(S))  
+  rho=t(rho)
 S=t(S)
 ptm = proc.time()
 out=a=.C("main2",
