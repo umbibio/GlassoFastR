@@ -13,7 +13,7 @@
 
 #define FALSE 0
 #define TRUE 1
-#define MyRound(x) roundf(x*1000000.0)/1000000.0
+#define MyRound(x) (roundf(x*1000000.0)/1000000.0)
 #define SQR(x) ((x)*(x))
 #define MAX(x,y) ((x)>(y)?(x):(y))
 #define MIN(x,y) ((x)<(y)?(x):(y))
