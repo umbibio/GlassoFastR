@@ -13,7 +13,7 @@
 
 #define FALSE 0
 #define TRUE 1
-
+#define MyRound(x) roundf(x*1000000.0)/1000000.0
 #define SQR(x) ((x)*(x))
 #define MAX(x,y) ((x)>(y)?(x):(y))
 #define MIN(x,y) ((x)<(y)?(x):(y))
@@ -73,6 +73,7 @@ void           *allocvec(int columns, int size)
 
 #define EPS (1.0e-7)
 #define BIG (1e9)
+//X is precision matrix and W is covariance
 
 int glassofast(const int n, double **S, double **L, const double thr, const int maxit, int approxflg, int warm, double **X, double **W)
 {
@@ -143,10 +144,9 @@ int glassofast(const int n, double **S, double **L, const double thr, const int 
 #pragma omp parallel for private(i,j,ii,wxj,a,b,c,dlx,delta,sum)
     for (j=0; j<n; j++)
     {
-   //   tid = omp_get_thread_num();
-    //  Rprintf("%d\t",tid);
-
-      for (ii=0; ii<n; ii++)
+  
+        
+       for (ii=0; ii<n; ii++)
         wxj[ii] = 0.0;
 
       for (i=0; i<n; i++)
@@ -162,22 +162,22 @@ int glassofast(const int n, double **S, double **L, const double thr, const int 
           {
             if (i != j && L[j][i] < BIG)
             {
-              a = S[j][i] - wxj[i] + wd[i] * X[j][i];
-              b = fabs(a) - L[j][i];
+              a = MyRound(S[j][i] - wxj[i] + wd[i] * X[j][i]);
+              b = MyRound(fabs(a) - L[j][i]);
               if (b <= 0.0)
                 c = 0.0;
               else if (a >= 0.0)
-                c = b / wd[i];
+                c = MyRound(b / wd[i]);
               else
-                c = -b / wd[i];
+                c = MyRound(-b / wd[i]);
 
-              delta = c - X[j][i];
+              delta = MyRound(c - X[j][i]);
               if (delta != 0.0 && (!approxflg || fabs(delta) > 1e-6))
               {
                 X[j][i] = c;
 
                 for (ii=0; ii<n; ii++)
-                  wxj[ii] += W[i][ii] * delta;
+                  wxj[ii] += MyRound(W[i][ii] * delta);
 
                 if (fabs(delta) > dlx)
                   dlx = fabs(delta);
@@ -196,7 +196,7 @@ int glassofast(const int n, double **S, double **L, const double thr, const int 
 
 #pragma omp critical
         if (sum > dw)
-          dw = sum;
+          dw = MyRound(sum);
 
         for (ii=0; ii<n; ii++)
           W[j][ii] = wxj[ii];
@@ -213,7 +213,7 @@ int glassofast(const int n, double **S, double **L, const double thr, const int 
     for (sum=ii=0; ii<n; ii++)
       sum += X[i][ii] * W[i][ii];
 
-    tmp = 1.0 / (wd[i] - sum);
+    tmp = MyRound(1.0 / (wd[i] - sum));
 
     for (ii=0; ii<n; ii++)
       X[i][ii] = -tmp * X[i][ii];
@@ -231,7 +231,6 @@ int glassofast(const int n, double **S, double **L, const double thr, const int 
 
   return iter;
 }
-
 
 /* Test Cholesky decomposition on matrix */
 int test_cholesky(double **a, const int n)
