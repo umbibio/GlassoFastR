@@ -71,7 +71,7 @@ void           *allocvec(int columns, int size)
 }
 
 
-#define EPS (1.0e-7)
+#define EPS (1.0e-14)
 #define BIG (1e9)
 //X is precision matrix and W is covariance
 
