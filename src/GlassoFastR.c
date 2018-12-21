@@ -144,8 +144,8 @@ int glassofast(const int n, double **S, double **L, const double thr, const int 
 #pragma omp parallel for private(i,j,ii,wxj,a,b,c,dlx,delta,sum)
     for (j=0; j<n; j++)
     {
-  
-        
+
+
        for (ii=0; ii<n; ii++)
         wxj[ii] = 0.0;
 
@@ -162,8 +162,8 @@ int glassofast(const int n, double **S, double **L, const double thr, const int 
           {
             if (i != j && L[j][i] < BIG)
             {
-              a = MyRound(S[j][i] - wxj[i] + wd[i] * X[j][i]);
-              b = MyRound(fabs(a) - L[j][i]);
+              a = (S[j][i] - wxj[i] + wd[i] * X[j][i]);
+              b = (fabs(a) - L[j][i]);
               if (b <= 0.0)
                 c = 0.0;
               else if (a >= 0.0)
@@ -171,13 +171,13 @@ int glassofast(const int n, double **S, double **L, const double thr, const int 
               else
                 c = MyRound(-b / wd[i]);
 
-              delta = MyRound(c - X[j][i]);
+              delta =(c - X[j][i]);
               if (delta != 0.0 && (!approxflg || fabs(delta) > 1e-6))
               {
                 X[j][i] = c;
 
                 for (ii=0; ii<n; ii++)
-                  wxj[ii] += MyRound(W[i][ii] * delta);
+                  wxj[ii] += (W[i][ii] * delta);
 
                 if (fabs(delta) > dlx)
                   dlx = fabs(delta);
@@ -196,7 +196,7 @@ int glassofast(const int n, double **S, double **L, const double thr, const int 
 
 #pragma omp critical
         if (sum > dw)
-          dw = MyRound(sum);
+          dw = (sum);
 
         for (ii=0; ii<n; ii++)
           W[j][ii] = wxj[ii];
@@ -213,7 +213,7 @@ int glassofast(const int n, double **S, double **L, const double thr, const int 
     for (sum=ii=0; ii<n; ii++)
       sum += X[i][ii] * W[i][ii];
 
-    tmp = MyRound(1.0 / (wd[i] - sum));
+    tmp = (1.0 / (wd[i] - sum));
 
     for (ii=0; ii<n; ii++)
       X[i][ii] = -tmp * X[i][ii];
@@ -309,7 +309,7 @@ int main2(double *cov,double *L,int *size,int *approximation, int *shrink,int *t
 
     }
   }
-       
+
 
   /* Shrink sample covariance matrix towards shrinkage target F = Diag(1,1,1,...,1) * smean */
 
