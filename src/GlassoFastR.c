@@ -167,9 +167,9 @@ int glassofast(const int n, double **S, double **L, const double thr, const int 
               if (b <= 0.0)
                 c = 0.0;
               else if (a >= 0.0)
-                c = MyRound(b / wd[i]);
+                c = (b / wd[i]);
               else
-                c = MyRound(-b / wd[i]);
+                c = (-b / wd[i]);
 
               delta =(c - X[j][i]);
               if (delta != 0.0 && (!approxflg || fabs(delta) > 1e-6))
