@@ -79,7 +79,7 @@ int glassofast(const int n, double **S, double **L, const double thr, const int 
 {
   int i, j, ii, iter, jj, tid;
   double a, b, c, delta, dlx, dw, shr, sum, thrlasso, tmp, wd[MAXSEQLEN], wxj[MAXSEQLEN];
-
+   int OutFlag=0;
   for (shr=ii=0; ii<n; ii++)
     for (jj=0; jj<n; jj++)
       shr += fabs(S[ii][jj]);
@@ -187,7 +187,7 @@ int glassofast(const int n, double **S, double **L, const double thr, const int 
 
           if (dlx < thrlasso)
           {
-            Rprintf("first\n");
+            OutFlag=0;
             break;
           }
         }
@@ -210,7 +210,7 @@ int glassofast(const int n, double **S, double **L, const double thr, const int 
     if (dw <= shr)
     {
       
-            Rprintf("second\n");
+           OutFlag=1;
       break;
     }
   }
@@ -235,7 +235,7 @@ int glassofast(const int n, double **S, double **L, const double thr, const int 
       X[ii][i] = X[i][ii];
     }
   }
-
+Rprintf("out Break: %d",OutFlag);
   return iter;
 }
 
