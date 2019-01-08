@@ -18,7 +18,7 @@
 #define MAX(x,y) ((x)>(y)?(x):(y))
 #define MIN(x,y) ((x)<(y)?(x):(y))
 
-#define MAXSEQLEN 50000
+#define MAXSEQLEN 20000
 
 /* Dump a rude message to standard error and exit */
 void fail(char *fmt, ...)
