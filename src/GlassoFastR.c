@@ -186,7 +186,10 @@ int glassofast(const int n, double **S, double **L, const double thr, const int 
           }
 
           if (dlx < thrlasso)
+          {
+            Rprintf("first\n");
             break;
+          }
         }
 
         wxj[j] = wd[j];
@@ -205,7 +208,11 @@ int glassofast(const int n, double **S, double **L, const double thr, const int 
     }
 
     if (dw <= shr)
+    {
+      
+            Rprintf("second\n");
       break;
+    }
   }
 
   for (i=0; i<n; i++)
