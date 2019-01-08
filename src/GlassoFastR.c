@@ -164,14 +164,16 @@ int glassofast(const int n, double **S, double **L, const double thr, const int 
             {
               a = (S[j][i] - wxj[i] + wd[i] * X[j][i]);
               b = (fabs(a) - L[j][i]);
-             // if (b <= 0.0)
-               if (b <= 0.0000000001)
+              if (b <= 0.0)
                 c = 0.0;
               else if (a >= 0.0)
                 c = (b / wd[i]);
               else
                 c = (-b / wd[i]);
-
+              //added
+              if(c<1e-10)
+                c=0;
+              
               delta =(c - X[j][i]);
               if (delta != 0.0 && (!approxflg || fabs(delta) > 1e-6))
               {
